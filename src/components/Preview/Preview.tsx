@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Preview: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const handleClickButton = () => {
     navigate('/page1');
   }

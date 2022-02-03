@@ -1,0 +1,139 @@
+.page1 {
+    position: relative;
+    font-family: 'Roboto';
+    margin: auto;
+    width: 1280px;
+    height: 720px;
+    background-image: url('../../img/main.png');
+    background-size: cover;
+}
+
+.workplace {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 380px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #86D3F4;
+    padding: 48px;
+    box-sizing: border-box;
+}
+
+.workplace__title {
+    margin: 13px 0px;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.workplace__subtitle {
+    margin: 13px 0px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+}
+
+.phone {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    margin: 20px 0 32px;
+}
+
+.phone__key {
+    width: 88px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.phone__key:hover {
+    cursor: pointer;
+    background-color: #74ccf1;
+}
+
+.workplace__approval {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.workplace__checkbox {
+    width: 48px;
+    height: 48px;
+    margin-right: 15px;
+    background-color: #86D3F4;
+}
+
+.workplace__checkbox-approval {
+    margin: 0;
+    width: 150px;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.workplace__button {
+    width: 284px;
+    height: 52px;
+    background-color: #86D3F4;
+    border: 1px solid #4E4E4E;
+    color: #4E4E4E;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.workplace__button:hover {
+    cursor: pointer;
+}
+
+.page1__button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 88px;
+    height: 52px;
+    background-color: #fff;
+    border: none;
+    background-image: url('../../img/close.png');
+    background-size: cover;
+}
+
+.page1__button:hover {
+    cursor: pointer;
+}
+
+.page1__info {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 40px;
+    bottom: 40px;
+}
+
+.page1__text {
+    margin: 0 10px 0 0;
+    width: 194px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.page1__qr {
+    width: 110px;
+    height: 110px;
+}
