@@ -47,7 +47,7 @@ const Page1: React.FC = () => {
                 successfully ?
                     <div className='successfully-screen'>
                         <h1 className='successfully-screen__title'>ЗАЯВКА ПРИНЯТА</h1>
-                        <p  className='successfully-screen__subtitle'>Держите телефон под рукой.<br/> Скоро с Вами свяжется наш менеджер. </p>
+                        <p className='successfully-screen__subtitle'>Держите телефон под рукой.<br /> Скоро с Вами свяжется наш менеджер. </p>
                     </div> :
                     <div className='page1__workplace workplace'>
                         <h1 className='workplace__title'>Введите ваш номер мобильного телефона</h1>
@@ -100,12 +100,16 @@ const Page1: React.FC = () => {
                             }
                         </div>
                         <div className='workplace__approval'>
-                            <input
-                                type='checkbox'
-                                className='workplace__checkbox'
-                                onChange={handleChangeCheckbox}
-                            />
-                            <p className='workplace__checkbox-approval'>Согласие на обработку персональных данных</p>
+                            <label className='workplace__lable' htmlFor='id1'>
+                                <input
+                                    type='checkbox'
+                                    id='id1'
+                                    className='workplace__checkbox'
+                                    onChange={handleChangeCheckbox}
+                                />
+                                <span className='workplace__checkbox_fake' />
+                                <p className='workplace__checkbox-approval'>Согласие на обработку персональных данных</p>
+                            </label>
                         </div>
                         <button
                             className={disabled || checkboxDisabled ? 'workplace__button' : 'workplace__button_active'}
