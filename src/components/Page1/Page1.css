@@ -8,6 +8,36 @@
     background-size: cover;
 }
 
+.successfully-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 380px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #86D3F4;
+    padding: 48px;
+    box-sizing: border-box;
+}
+
+.successfully-screen__title {
+    margin: 217px 0 0;
+    width: 200px;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    text-align: center;
+}
+
+.successfully-screen__subtitle {
+    margin: 15px 0 0;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+}
+
 .workplace {
     position: absolute;
     top: 0;
@@ -94,7 +124,20 @@
     margin-top: 15px;
 }
 
-.workplace__button:hover {
+.workplace__button_active {
+    width: 284px;
+    height: 52px;
+    background-color: #000;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.workplace__button, .workplace__button_active:hover {
     cursor: pointer;
 }
 
