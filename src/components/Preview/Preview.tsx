@@ -6,13 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import myVideo from '../../video/video.mp4';
 
 const Preview: React.FC = () => {
-  const [visualMenu, setVisualMenu]: any = React.useState(false);
-
+  const [visualMenu, setVisualMenu] = React.useState<boolean>(false);
   const navigate = useNavigate();
+
+  //по клику на кнопку роутим нас на сл. страницу
   const handleClickButton = () => {
     navigate('/page1');
   }
 
+  //при загрузке приложения запускается отчет до появления меню
   const openMenu = () => {
     setVisualMenu(true)
   }

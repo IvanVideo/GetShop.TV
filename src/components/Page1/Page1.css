@@ -60,6 +60,19 @@
     text-align: center;
 }
 
+.workplace__number {
+    font-size: 1.5em;
+    text-align: center;
+    background-color: #86D3F4;
+    border: none;
+}
+
+.workplace__number:focus {
+    /* outline: 0; */
+    outline-style: solid;
+    outline-offset: 0;
+}
+
 .workplace__subtitle {
     margin: 13px 0px;
     font-weight: 400;
@@ -84,6 +97,12 @@
     align-items: center;
     border: 2px solid black;
     box-sizing: border-box;
+}
+
+.phone__key:nth-child(10) {
+    width: 186px;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .phone__key:hover {
