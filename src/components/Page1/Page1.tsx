@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import './Page1.css';
 import qr from '../../img/qr.png';
 import { useNavigate } from 'react-router-dom';
+import numberApi from '../../utils/api';
 
 const Page1: React.FC = () => {
     const [phoneNumber, setPhoneNumber]: any = React.useState([]); //массив цифр, которые будут отображаться в поле
     const [disabled, setDisabled]: any = React.useState<boolean>(true); //стейт кнопки подтверждения
     const [checkboxDisabled, setCheckboxDisabled]: any = React.useState<boolean>(true); //стейт чекбокса
     const [successfully, setSuccessfully] = React.useState<boolean>(false); //стейт подтверждения номера и согласия на обработку ПД
+    const [validNumber, setValidNumber] = React.useState<boolean>(true); //стейт валидации номера
     const phoneKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'стереть', 0]; //массив значений, которые будут отрендерены на кнопках
     const navigate = useNavigate();
 
@@ -88,10 +90,18 @@ const Page1: React.FC = () => {
     }
 
     //отслеживаем полностью ли заполнено поле ввода номера
+    //так же производим валидацию номера после заполнения формы через REST API
     useEffect(() => {
         if (phoneNumber.length == 10) {
-            setDisabled(false)
+            numberApi.checkNumber(phoneNumber)
+                .then((res) => {
+                    setValidNumber(res.valid);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
+        setDisabled(false)
     }, [phoneNumber])
 
     return (
@@ -105,7 +115,7 @@ const Page1: React.FC = () => {
                     <div className='page1__workplace workplace'>
                         <h1 className='workplace__title'>Введите ваш номер мобильного телефона</h1>
                         <input
-                            className='workplace__number'
+                            className={validNumber ? 'workplace__number' : 'workplace__number_error'}
                             value={
                                 `+7(${phoneNumber[0] ? phoneNumber[0] : '_'}${phoneNumber[1] ? phoneNumber[1] : ' _'}${phoneNumber[2] ? phoneNumber[2] : ' _'})${phoneNumber[3] ? phoneNumber[3] : ' _'}${phoneNumber[4] ? phoneNumber[4] : ' _'}${phoneNumber[5] ? phoneNumber[5] : ' _'}-${phoneNumber[6] ? phoneNumber[6] : ' _'}${phoneNumber[7] ? phoneNumber[7] : ' _'}-${phoneNumber[8] ? phoneNumber[8] : ' _'}${phoneNumber[9] ? phoneNumber[9] : ' _'}`
                             }
@@ -120,25 +130,32 @@ const Page1: React.FC = () => {
                                     <div
                                         className='phone__key'
                                         key={index}
+                                        tabIndex={index}
                                         onClick={handlCkickPhoneKey}
                                     >{item}</div>
                                 ))
                             }
                         </div>
-                        <div className='workplace__approval'>
-                            <label
-                                className='workplace__lable'
-                                htmlFor='id1'>
-                                <input
-                                    type='checkbox'
-                                    id='id1'
-                                    className='workplace__checkbox'
-                                    onChange={handleChangeCheckbox}
-                                />
-                                <span className='workplace__checkbox_fake' />
-                                <p className='workplace__checkbox-approval'>Согласие на обработку персональных данных</p>
-                            </label>
-                        </div>
+                        {
+                            validNumber ?
+                                <div className='workplace__approval'>
+                                    <label
+                                        className='workplace__lable'
+                                        htmlFor='id1'>
+                                        <input
+                                            type='checkbox'
+                                            id='id1'
+                                            className='workplace__checkbox'
+                                            onChange={handleChangeCheckbox}
+                                        />
+                                        <span className='workplace__checkbox_fake' />
+                                        <p className='workplace__checkbox-approval'>Согласие на обработку персональных данных</p>
+                                    </label>
+                                </div>
+                                :
+                                <p className='workplace__error'>Неверно введён номер</p>
+                        }
+
                         <button
                             className={disabled || checkboxDisabled ? 'workplace__button' : 'workplace__button_active'}
                             disabled={disabled}
