@@ -1,0 +1,22 @@
+.page2 {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page2__slider {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 88px;
+    height: 52px;
+    background-image: url('../../img/out.png');
+}
+
+.page2__slider:hover {
+    cursor: pointer;
+}

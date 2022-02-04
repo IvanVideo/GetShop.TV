@@ -1,0 +1,40 @@
+.slider-container {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider__item {
+    width: 1280px;
+    height: 720px;
+}
+
+.slider__button {
+    width: 72px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.slider__button:hover {
+    cursor: pointer;
+}
+
+.rigth {
+    background-image: url('../../img/Right.png');
+}
+
+.left {
+    background-image: url('../../img/Left.png');
+}
+
+.slider__buttons {
+    display: flex;
+    position: absolute;
+    bottom: 24px;
+    z-index: 100;
+}

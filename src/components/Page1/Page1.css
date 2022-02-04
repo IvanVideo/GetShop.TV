@@ -248,3 +248,18 @@
     color: red;
     text-transform: uppercase;
 }
+
+.successfully-screen__button {
+    width: 200px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    background-color: #1c87c9;
+    animation: glowing 1300ms infinite;
+}
+
+@keyframes glowing {
+    0% { background-color: #75c1ff; box-shadow: 0 0 5px #75c1ff; }
+    50% { background-color: #53aef8; box-shadow: 0 0 10px #53aef8; }
+    100% { background-color: #005ba5; box-shadow: 0 0 5px #005ba5; }
+    }

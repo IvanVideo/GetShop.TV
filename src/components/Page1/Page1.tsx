@@ -6,8 +6,8 @@ import numberApi from '../../utils/api';
 
 const Page1: React.FC = () => {
     const [phoneNumber, setPhoneNumber]: any = React.useState([]); //массив цифр, которые будут отображаться в поле
-    const [disabled, setDisabled]: any = React.useState<boolean>(true); //стейт кнопки подтверждения
-    const [checkboxDisabled, setCheckboxDisabled]: any = React.useState<boolean>(true); //стейт чекбокса
+    const [disabled, setDisabled] = React.useState<boolean>(true); //стейт кнопки подтверждения
+    const [checkboxDisabled, setCheckboxDisabled] = React.useState<boolean>(true); //стейт чекбокса
     const [successfully, setSuccessfully] = React.useState<boolean>(false); //стейт подтверждения номера и согласия на обработку ПД
     const [validNumber, setValidNumber] = React.useState<boolean>(true); //стейт валидации номера
     const phoneKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'стереть', 0]; //массив значений, которые будут отрендерены на кнопках
@@ -44,6 +44,7 @@ const Page1: React.FC = () => {
     //логика нажатия кнопок клавиатуры при вводе номера
     //если номер заполнен полностью, функция завершает работу
     const handleKeyDown = (e: any) => {
+        // console.log(e.keyCode)
         if (phoneNumber.length == 10) {
             if (e.keyCode == 8) {
                 setPhoneNumber([]);
@@ -89,20 +90,25 @@ const Page1: React.FC = () => {
 
     }
 
+    //роучу на страницу со слайдером
+    const handleClickButton = () => {
+        navigate('/page2');
+    }
+
     //отслеживаем полностью ли заполнено поле ввода номера
     //так же производим валидацию номера после заполнения формы через REST API
     useEffect(() => {
         if (phoneNumber.length == 10) {
             numberApi.checkNumber(phoneNumber)
                 .then((res) => {
-                    setValidNumber(res.valid);
-                })
-                .catch((err) => {
+                    setDisabled(false);
+                    setValidNumber(true); //к большому сожалению кончилось бесплатное количество запросов на сервис, поэтому в ответи приходит не
+                })                        //статус проверки, а ошибка, где просят купить платную версию. Пришлось захардкодить положительный ответ.
+                .catch((err) => {         //в идеале ответ должен приходить res.valid со значением true или false
                     console.log(err);
                 });
         }
-        setDisabled(false)
-    }, [phoneNumber])
+    }, [phoneNumber, disabled, checkboxDisabled])
 
     return (
         <div className='page1'>
@@ -111,11 +117,15 @@ const Page1: React.FC = () => {
                     <div className='successfully-screen'>
                         <h1 className='successfully-screen__title'>ЗАЯВКА ПРИНЯТА</h1>
                         <p className='successfully-screen__subtitle'>Держите телефон под рукой.<br /> Скоро с Вами свяжется наш менеджер. </p>
+                        <button
+                            className='successfully-screen__button'
+                            onClick={handleClickButton}
+                        >доп. задание - слайдер</button>
                     </div> :
                     <div className='page1__workplace workplace'>
                         <h1 className='workplace__title'>Введите ваш номер мобильного телефона</h1>
                         <input
-                            className={validNumber ? 'workplace__number' : 'workplace__number_error'}
+                            className={validNumber ? 'workplace__number' : 'workplace__number_error'} //при работующей валидации номера меняет класс на тот, который указывает о том что номер невалидный
                             value={
                                 `+7(${phoneNumber[0] ? phoneNumber[0] : '_'}${phoneNumber[1] ? phoneNumber[1] : ' _'}${phoneNumber[2] ? phoneNumber[2] : ' _'})${phoneNumber[3] ? phoneNumber[3] : ' _'}${phoneNumber[4] ? phoneNumber[4] : ' _'}${phoneNumber[5] ? phoneNumber[5] : ' _'}-${phoneNumber[6] ? phoneNumber[6] : ' _'}${phoneNumber[7] ? phoneNumber[7] : ' _'}-${phoneNumber[8] ? phoneNumber[8] : ' _'}${phoneNumber[9] ? phoneNumber[9] : ' _'}`
                             }
@@ -137,7 +147,7 @@ const Page1: React.FC = () => {
                             }
                         </div>
                         {
-                            validNumber ?
+                            validNumber ? //при работующей валидации скрывает или отображает сообщение об ошибке валидации номера
                                 <div className='workplace__approval'>
                                     <label
                                         className='workplace__lable'
