@@ -28,7 +28,7 @@ class NumberApi {
 }
 
 const config = {
-    baseUrl: "http://apilayer.net/api/validate?",
+    baseUrl: "https://apilayer.net/api/validate?",
     access_key: "eed53fd3de92a4e3ad141c4abd79007c",
 };
 
