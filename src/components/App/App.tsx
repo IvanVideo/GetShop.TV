@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Preview />} />
+        <Route path='/GetShop.TV' element={<Preview />} />
         <Route path='/page1' element={<Page1 />} />
         <Route path='/page2' element={<Page2 />} />
       </Routes>
