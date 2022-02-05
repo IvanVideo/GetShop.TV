@@ -29,7 +29,7 @@ class NumberApi {
 
 const config = {
     baseUrl: "http://apilayer.net/api/validate?",
-    access_key: "a37a1eeb36a78fac3db6dedc6d042a29",
+    access_key: "eed53fd3de92a4e3ad141c4abd79007c",
 };
 
 const numberApi = new NumberApi(config);

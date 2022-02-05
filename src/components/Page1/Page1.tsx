@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Page1.css';
 import qr from '../../img/qr.png';
 import { useNavigate } from 'react-router-dom';
 import numberApi from '../../utils/api';
+import { nextTick } from 'process';
 
 const Page1: React.FC = () => {
     const [phoneNumber, setPhoneNumber]: any = React.useState([]); //массив цифр, которые будут отображаться в поле
@@ -44,7 +45,6 @@ const Page1: React.FC = () => {
     //логика нажатия кнопок клавиатуры при вводе номера
     //если номер заполнен полностью, функция завершает работу
     const handleKeyDown = (e: any) => {
-        // console.log(e.keyCode)
         if (phoneNumber.length == 10) {
             if (e.keyCode == 8) {
                 setPhoneNumber([]);
@@ -101,10 +101,12 @@ const Page1: React.FC = () => {
         if (phoneNumber.length == 10) {
             numberApi.checkNumber(phoneNumber)
                 .then((res) => {
+                    if (res.valid === true || res.valid === false) {
+                        setValidNumber(res.valid);
+                    }
                     setDisabled(false);
-                    setValidNumber(true); //к большому сожалению кончилось бесплатное количество запросов на сервис, поэтому в ответи приходит не
-                })                        //статус проверки, а ошибка, где просят купить платную версию. Пришлось захардкодить положительный ответ.
-                .catch((err) => {         //в идеале ответ должен приходить res.valid со значением true или false
+                })
+                .catch((err) => {
                     console.log(err);
                 });
         }
@@ -125,11 +127,12 @@ const Page1: React.FC = () => {
                     <div className='page1__workplace workplace'>
                         <h1 className='workplace__title'>Введите ваш номер мобильного телефона</h1>
                         <input
-                            className={validNumber ? 'workplace__number' : 'workplace__number_error'} //при работующей валидации номера меняет класс на тот, который указывает о том что номер невалидный
+                            className={validNumber ? 'workplace__number' : 'workplace__number_error'}
                             value={
                                 `+7(${phoneNumber[0] ? phoneNumber[0] : '_'}${phoneNumber[1] ? phoneNumber[1] : ' _'}${phoneNumber[2] ? phoneNumber[2] : ' _'})${phoneNumber[3] ? phoneNumber[3] : ' _'}${phoneNumber[4] ? phoneNumber[4] : ' _'}${phoneNumber[5] ? phoneNumber[5] : ' _'}-${phoneNumber[6] ? phoneNumber[6] : ' _'}${phoneNumber[7] ? phoneNumber[7] : ' _'}-${phoneNumber[8] ? phoneNumber[8] : ' _'}${phoneNumber[9] ? phoneNumber[9] : ' _'}`
                             }
                             onKeyDown={handleKeyDown}
+                            tabIndex={0}
                             readOnly
                         >
                         </input>
@@ -147,7 +150,7 @@ const Page1: React.FC = () => {
                             }
                         </div>
                         {
-                            validNumber ? //при работующей валидации скрывает или отображает сообщение об ошибке валидации номера
+                            validNumber ?
                                 <div className='workplace__approval'>
                                     <label
                                         className='workplace__lable'
